@@ -8,10 +8,10 @@
   <style>
     :root {
       --bg-main: #07090e;
-      --sidebar-bg: rgba(15, 18, 28, 0.75);
-      --card-bg: rgba(20, 25, 38, 0.65);
+      --sidebar-bg: rgba(15, 18, 28, 0.85);
+      --card-bg: rgba(20, 25, 38, 0.7);
       --accent-color: #5865F2;
-      --accent-glow: rgba(88, 101, 242, 0.4);
+      --accent-glow: rgba(88, 101, 242, 0.35);
       --text-primary: #ffffff;
       --text-secondary: #949ba4;
       --border-color: rgba(255, 255, 255, 0.08);
@@ -25,6 +25,7 @@
       padding: 0;
       box-sizing: border-box;
       font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
@@ -52,36 +53,13 @@
       position: absolute;
       border-radius: 50%;
       filter: blur(80px);
-      opacity: 0.5;
+      opacity: 0.4;
       animation: floatOrb 12s infinite alternate ease-in-out;
     }
 
-    .orb-1 {
-      width: 350px;
-      height: 350px;
-      background: #5865F2;
-      top: -50px;
-      left: -50px;
-    }
-
-    .orb-2 {
-      width: 400px;
-      height: 400px;
-      background: #7289da;
-      bottom: -100px;
-      right: -50px;
-      animation-delay: -4s;
-    }
-
-    .orb-3 {
-      width: 250px;
-      height: 250px;
-      background: #3b428a;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      animation-delay: -8s;
-    }
+    .orb-1 { width: 350px; height: 350px; background: #5865F2; top: -50px; left: -50px; }
+    .orb-2 { width: 400px; height: 400px; background: #7289da; bottom: -100px; right: -50px; animation-delay: -4s; }
+    .orb-3 { width: 250px; height: 250px; background: #3b428a; top: 40%; left: 50%; transform: translate(-50%, -50%); animation-delay: -8s; }
 
     @keyframes floatOrb {
       0% { transform: translate(0, 0) scale(1); }
@@ -89,7 +67,7 @@
       100% { transform: translate(-40px, 80px) scale(0.9); }
     }
 
-    /* Sol Menü (Sidebar) */
+    /* Sol Menü (Desktop) */
     .sidebar {
       width: 280px;
       background: var(--sidebar-bg);
@@ -100,6 +78,7 @@
       gap: 0.8rem;
       backdrop-filter: blur(20px);
       z-index: 10;
+      flex-shrink: 0;
     }
 
     .brand-title {
@@ -122,6 +101,13 @@
       box-shadow: 0 0 10px #23a55a;
     }
 
+    .nav-btn-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      width: 100%;
+    }
+
     .nav-btn {
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid var(--border-color);
@@ -136,12 +122,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      white-space: nowrap;
     }
 
     .nav-btn:hover {
       background: rgba(255, 255, 255, 0.06);
       color: #fff;
-      transform: translateX(4px);
     }
 
     .nav-btn.active {
@@ -175,7 +161,7 @@
       align-items: center;
     }
 
-    /* Kart Genel Yapısı */
+    /* Kart Yapıları */
     .hero-card, .list-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -202,32 +188,35 @@
 
     .hero-desc, .card-desc {
       color: var(--text-secondary);
-      font-size: 1rem;
+      font-size: 0.95rem;
       margin-bottom: 2rem;
+      line-height: 1.5;
     }
 
     .join-btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 12px;
       background: var(--accent-color);
       color: #fff;
       text-decoration: none;
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       font-weight: 800;
-      padding: 1.2rem 2.8rem;
+      padding: 1.1rem 2.5rem;
       border-radius: 16px;
       box-shadow: 0 10px 30px var(--accent-glow);
       transition: all 0.25s ease;
+      width: 100%;
+      max-width: 320px;
     }
 
     .join-btn:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 15px 35px rgba(88, 101, 242, 0.6);
+      transform: translateY(-2px);
       background: #4752c4;
     }
 
-    /* Liste Öğeleri (Web Siteleri & Credits) */
+    /* Liste Öğeleri */
     .site-item, .credit-item {
       display: flex;
       align-items: center;
@@ -236,19 +225,13 @@
       border: 1px solid var(--border-color);
       background: rgba(255, 255, 255, 0.02);
       border-radius: 16px;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       transition: all 0.25s ease;
       gap: 12px;
     }
 
     .site-item:last-child, .credit-item:last-child {
       margin-bottom: 0;
-    }
-
-    .site-item:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(255, 255, 255, 0.15);
-      transform: translateY(-2px);
     }
 
     .site-info {
@@ -258,7 +241,7 @@
     }
 
     .site-name, .credit-name {
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 700;
       color: #fff;
     }
@@ -275,26 +258,22 @@
     .site-link-btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
-      padding: 0.7rem 1.2rem;
+      padding: 0.65rem 1.2rem;
       background: var(--accent-color);
       color: #fff;
       text-decoration: none;
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       border-radius: 12px;
       transition: all 0.2s ease;
       box-shadow: 0 4px 15px var(--accent-glow);
+      flex-shrink: 0;
     }
 
-    .site-link-btn:hover {
-      background: #4752c4;
-      transform: scale(1.05);
-    }
-
-    /* Credits Bölüm Başlıkları */
     .credits-section {
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .credits-section:last-child {
@@ -302,139 +281,157 @@
     }
 
     .credits-title {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 800;
       color: var(--accent-color);
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.2px;
     }
 
     .icon-group {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
-    /* Platform Sadece İkon Buton Stilleri */
     .icon-btn {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.2s ease;
     }
 
-    .icon-btn svg {
-      width: 20px;
-      height: 20px;
-      fill: currentColor;
-    }
-
-    .yt-icon {
-      background: rgba(255, 0, 0, 0.1);
-      color: #ff4d4d;
-      border: 1px solid rgba(255, 0, 0, 0.2);
-    }
-
-    .yt-icon:hover {
-      background: var(--yt-color);
-      color: #fff;
-      border-color: var(--yt-color);
-      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
-      transform: translateY(-3px) scale(1.05);
-    }
-
-    .kick-icon {
-      background: rgba(83, 252, 24, 0.1);
-      color: #53FC18;
-      border: 1px solid rgba(83, 252, 24, 0.2);
-    }
-
-    .kick-icon:hover {
-      background: var(--kick-color);
-      color: #000;
-      border-color: var(--kick-color);
-      box-shadow: 0 6px 20px rgba(83, 252, 24, 0.4);
-      transform: translateY(-3px) scale(1.05);
-    }
-
-    .gh-icon {
-      background: rgba(255, 255, 255, 0.06);
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .gh-icon:hover {
-      background: #fff;
-      color: #000;
-      border-color: #fff;
-      box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
-      transform: translateY(-3px) scale(1.05);
-    }
+    .icon-btn svg { width: 18px; height: 18px; fill: currentColor; }
+    .yt-icon { background: rgba(255, 0, 0, 0.1); color: #ff4d4d; border: 1px solid rgba(255, 0, 0, 0.2); }
+    .kick-icon { background: rgba(83, 252, 24, 0.1); color: #53FC18; border: 1px solid rgba(83, 252, 24, 0.2); }
+    .gh-icon { background: rgba(255, 255, 255, 0.06); color: #fff; border: 1px solid rgba(255, 255, 255, 0.15); }
 
     @keyframes tabFadeIn {
-      from { opacity: 0; transform: translateY(12px) scale(0.98); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
+    /* --- MOBİL UYUMLULUK ÖZELLEŞTİRMELERİ --- */
     @media (max-width: 768px) {
       body {
         flex-direction: column;
-        height: auto;
-        overflow: auto;
+        height: 100vh;
       }
+
+      /* Üstte sabit header yapısı */
       .sidebar {
         width: 100%;
+        padding: 1rem 1rem 0.8rem 1rem;
         border-right: none;
         border-bottom: 1px solid var(--border-color);
+        gap: 0.8rem;
       }
+
+      .brand-title {
+        margin-bottom: 0;
+        font-size: 1.1rem;
+      }
+
+      /* Mobilde kaydırılabilir sekmeler */
+      .nav-btn-wrapper {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .nav-btn-wrapper::-webkit-scrollbar {
+        display: none; /* Kaydırma çubuğunu gizle */
+      }
+
+      .nav-btn {
+        padding: 0.65rem 1rem;
+        font-size: 0.85rem;
+        border-radius: 10px;
+        flex-shrink: 0;
+      }
+
+      .nav-btn svg {
+        display: none; /* Mobilde ok simgesini kaldır */
+      }
+
+      /* İçerik Alanı Düzenlemesi */
       .content-area {
-        padding: 1.5rem;
-      }
-      .site-item {
-        flex-direction: column;
+        padding: 1.25rem 1rem;
         align-items: flex-start;
       }
+
+      .hero-card, .list-card {
+        padding: 1.5rem 1.2rem;
+        border-radius: 18px;
+      }
+
+      .hero-card {
+        padding: 2rem 1.2rem;
+      }
+
+      .hero-title, .card-title {
+        font-size: 1.4rem;
+      }
+
+      .hero-desc, .card-desc {
+        font-size: 0.88rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .site-item {
+        padding: 1rem;
+        gap: 10px;
+      }
+
+      .site-name, .credit-name {
+        font-size: 0.95rem;
+      }
+
       .site-link-btn {
-        width: 100%;
-        justify-content: center;
+        padding: 0.55rem 1rem;
+        font-size: 0.8rem;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Animasyonlu Arka Plan Katmanı -->
+  <!-- Animasyonlu Arka Plan -->
   <div class="bg-animation">
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
   </div>
 
-  <!-- Sol Menü -->
+  <!-- Üst / Sol Menü -->
   <aside class="sidebar">
     <div class="brand-title">
       <span></span> pixsselbox web
     </div>
-    <button class="nav-btn active" onclick="showTab('dc-sunucu', this)">
-      <span>DC Sunucu</span>
-      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M8.5 5 15.5 12 8.5 19"/></svg>
-    </button>
-    <button class="nav-btn" onclick="showTab('websites', this)">
-      <span>Diğer Web Siteleri</span>
-      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M8.5 5 15.5 12 8.5 19"/></svg>
-    </button>
-    <button class="nav-btn" onclick="showTab('credits', this)">
-      <span>Credits</span>
-      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M8.5 5 15.5 12 8.5 19"/></svg>
-    </button>
+    <div class="nav-btn-wrapper">
+      <button class="nav-btn active" onclick="showTab('dc-sunucu', this)">
+        <span>DC Sunucu</span>
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M8.5 5 15.5 12 8.5 19"/></svg>
+      </button>
+      <button class="nav-btn" onclick="showTab('websites', this)">
+        <span>Diğer Web Siteleri</span>
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M8.5 5 15.5 12 8.5 19"/></svg>
+      </button>
+      <button class="nav-btn" onclick="showTab('credits', this)">
+        <span>Credits</span>
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M8.5 5 15.5 12 8.5 19"/></svg>
+      </button>
+    </div>
   </aside>
 
-  <!-- Sağ İçerik Alanı -->
+  <!-- Sağ / Alt İçerik Alanı -->
   <main class="content-area">
 
     <!-- 1. DC Sunucu Sekmesi -->
@@ -443,7 +440,7 @@
         <h1 class="hero-title">Topluluğumuza Katıl!</h1>
         <p class="hero-desc">Sohbet etmek, etkinliklere katılmak ve yeni arkadaşlar edinmek için sunucumuza davetlisin.</p>
         <a href="https://discord.gg/8D9B5Z3ysj" target="_blank" class="join-btn">
-          <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+          <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
           Sunucuya Katıl
         </a>
       </div>
@@ -459,13 +456,13 @@
           <div class="site-info">
             <span class="site-name">Nemesis Client</span>
             <span class="site-note">
-              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+              <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
               Mobilde çalışmayabilir
             </span>
           </div>
           <a href="http://nemesis-client.ddns.net" target="_blank" class="site-link-btn">
             Git
-            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3zM5 5h6v2H5v12h12v-6h2v8H3V5h2z"/></svg>
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3zM5 5h6v2H5v12h12v-6h2v8H3V5h2z"/></svg>
           </a>
         </div>
 
@@ -475,7 +472,7 @@
           </div>
           <a href="https://free-nitro.edgeone.dev/" target="_blank" class="site-link-btn">
             Git
-            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3zM5 5h6v2H5v12h12v-6h2v8H3V5h2z"/></svg>
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3zM5 5h6v2H5v12h12v-6h2v8H3V5h2z"/></svg>
           </a>
         </div>
 
@@ -486,7 +483,6 @@
     <section id="credits" class="tab-content">
       <div class="list-card">
         
-        <!-- Kodlama ve Layout -->
         <div class="credits-section">
           <div class="credits-title">Kodlama & Layout</div>
           
@@ -518,7 +514,6 @@
           </div>
         </div>
 
-        <!-- Fikir -->
         <div class="credits-section">
           <div class="credits-title">Fikir</div>
           <div class="credit-item">
@@ -537,7 +532,6 @@
           </div>
         </div>
 
-        <!-- Özel Teşekkürler -->
         <div class="credits-section">
           <div class="credits-title">Özel Teşekkürler</div>
           <div class="credit-item">
